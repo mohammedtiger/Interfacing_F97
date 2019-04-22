@@ -45,6 +45,25 @@ void F97_void_Uart_Send_byte(unsigned char data)
 	UDR = data;
 }
 
+void F97_void_Uart_Send_String(unsigned char *data)
+{
+	int index = 0 ;
+	while(data[index] != 0)
+	{
+		F97_void_Uart_Send_byte(data[index]);
+		index ++;
+	}
+}
+
+void F97_void_Uart_Send_frame(unsigned char *data , int len)
+{
+	for(int index = 0 ; index < len ; index ++)
+	{
+		F97_void_Uart_Send_byte(data[index]);
+	}
+
+}
+
 void F97_void_Uart_Receive_byte(unsigned char *data)
 {
 	while (F97_CHECK_BIT(UCSRA , RXC) == 0);

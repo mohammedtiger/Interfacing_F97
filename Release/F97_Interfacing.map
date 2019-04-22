@@ -27,6 +27,7 @@ user_signatures  0x0000000000850000 0x0000000000000400 rw !x
 Linker script and memory map
 
 LOAD /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr5/crtm32.o
+LOAD ./MCAL/F97_SPI.o
 LOAD ./MCAL/F97_Uart.o
 LOAD ./APPS/main.o
 START GROUP
@@ -125,7 +126,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000      0x178
+.text           0x0000000000000000      0x254
  *(.vectors)
  .vectors       0x0000000000000000       0x54 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr5/crtm32.o
                 0x0000000000000000                __vectors
@@ -199,6 +200,7 @@ END GROUP
                 0x0000000000000078                __vector_16
                 0x0000000000000078                __vector_18
                 0x0000000000000078                __vector_20
+ .text          0x000000000000007c        0x0 ./MCAL/F97_SPI.o
  .text          0x000000000000007c        0x0 ./MCAL/F97_Uart.o
  .text          0x000000000000007c        0x0 ./APPS/main.o
  .text          0x000000000000007c        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_udivmodsi4.o)
@@ -206,69 +208,90 @@ END GROUP
  .text          0x000000000000007c        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_clear_bss.o)
                 0x000000000000007c                . = ALIGN (0x2)
  *(.text.*)
+ .text.F97_void_SPI_Init
+                0x000000000000007c       0x1c ./MCAL/F97_SPI.o
+                0x000000000000007c                F97_void_SPI_Init
+ .text.F97_void_SPI_SlaveSelect
+                0x0000000000000098       0x1a ./MCAL/F97_SPI.o
+                0x0000000000000098                F97_void_SPI_SlaveSelect
+ .text.F97_void_SPI_transiver
+                0x00000000000000b2        0x8 ./MCAL/F97_SPI.o
+                0x00000000000000b2                F97_void_SPI_transiver
+ .text.F97_void_SPI_receive
+                0x00000000000000ba        0xc ./MCAL/F97_SPI.o
+                0x00000000000000ba                F97_void_SPI_receive
+ .text.F97_void_SPI_Send_String
+                0x00000000000000c6       0x40 ./MCAL/F97_SPI.o
+                0x00000000000000c6                F97_void_SPI_Send_String
  .text.F97_void_Uart_Init
-                0x000000000000007c       0x3e ./MCAL/F97_Uart.o
-                0x000000000000007c                F97_void_Uart_Init
+                0x0000000000000106       0x3e ./MCAL/F97_Uart.o
+                0x0000000000000106                F97_void_Uart_Init
  .text.F97_void_Uart_callbackfunc
-                0x00000000000000ba        0xa ./MCAL/F97_Uart.o
-                0x00000000000000ba                F97_void_Uart_callbackfunc
+                0x0000000000000144        0xa ./MCAL/F97_Uart.o
+                0x0000000000000144                F97_void_Uart_callbackfunc
  .text.F97_void_Uart_Send_byte
-                0x00000000000000c4        0x8 ./MCAL/F97_Uart.o
-                0x00000000000000c4                F97_void_Uart_Send_byte
+                0x000000000000014e        0x8 ./MCAL/F97_Uart.o
+                0x000000000000014e                F97_void_Uart_Send_byte
+ .text.F97_void_Uart_Send_String
+                0x0000000000000156       0x18 ./MCAL/F97_Uart.o
+                0x0000000000000156                F97_void_Uart_Send_String
+ .text.F97_void_Uart_Send_frame
+                0x000000000000016e       0x34 ./MCAL/F97_Uart.o
+                0x000000000000016e                F97_void_Uart_Send_frame
  .text.F97_void_Uart_Receive_byte
-                0x00000000000000cc        0xc ./MCAL/F97_Uart.o
-                0x00000000000000cc                F97_void_Uart_Receive_byte
+                0x00000000000001a2        0xc ./MCAL/F97_Uart.o
+                0x00000000000001a2                F97_void_Uart_Receive_byte
  .text.__vector_13
-                0x00000000000000d8       0x30 ./MCAL/F97_Uart.o
-                0x00000000000000d8                __vector_13
+                0x00000000000001ae       0x30 ./MCAL/F97_Uart.o
+                0x00000000000001ae                __vector_13
  .text.startup.main
-                0x0000000000000108       0x28 ./APPS/main.o
-                0x0000000000000108                main
+                0x00000000000001de       0x2e ./APPS/main.o
+                0x00000000000001de                main
  .text.libgcc.mul
-                0x0000000000000130        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_udivmodsi4.o)
+                0x000000000000020c        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_udivmodsi4.o)
  .text.libgcc.div
-                0x0000000000000130       0x44 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_udivmodsi4.o)
-                0x0000000000000130                __udivmodsi4
- .text.libgcc   0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_udivmodsi4.o)
+                0x000000000000020c       0x44 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_udivmodsi4.o)
+                0x000000000000020c                __udivmodsi4
+ .text.libgcc   0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_udivmodsi4.o)
  .text.libgcc.prologue
-                0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_udivmodsi4.o)
+                0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_udivmodsi4.o)
  .text.libgcc.builtins
-                0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_udivmodsi4.o)
+                0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_udivmodsi4.o)
  .text.libgcc.fmul
-                0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_udivmodsi4.o)
+                0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_udivmodsi4.o)
  .text.libgcc.fixed
-                0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_udivmodsi4.o)
+                0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_udivmodsi4.o)
  .text.libgcc.mul
-                0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_exit.o)
+                0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_exit.o)
  .text.libgcc.div
-                0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_exit.o)
- .text.libgcc   0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_exit.o)
+                0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_exit.o)
+ .text.libgcc   0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_exit.o)
  .text.libgcc.prologue
-                0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_exit.o)
+                0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_exit.o)
  .text.libgcc.builtins
-                0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_exit.o)
+                0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_exit.o)
  .text.libgcc.fmul
-                0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_exit.o)
+                0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_exit.o)
  .text.libgcc.fixed
-                0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_exit.o)
+                0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_exit.o)
  .text.libgcc.mul
-                0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_clear_bss.o)
+                0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_clear_bss.o)
  .text.libgcc.div
-                0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_clear_bss.o)
- .text.libgcc   0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_clear_bss.o)
+                0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_clear_bss.o)
+ .text.libgcc   0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_clear_bss.o)
  .text.libgcc.prologue
-                0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_clear_bss.o)
+                0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_clear_bss.o)
  .text.libgcc.builtins
-                0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_clear_bss.o)
+                0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_clear_bss.o)
  .text.libgcc.fmul
-                0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_clear_bss.o)
+                0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_clear_bss.o)
  .text.libgcc.fixed
-                0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_clear_bss.o)
-                0x0000000000000174                . = ALIGN (0x2)
+                0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_clear_bss.o)
+                0x0000000000000250                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000000000000174        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_exit.o)
-                0x0000000000000174                exit
-                0x0000000000000174                _exit
+ .fini9         0x0000000000000250        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_exit.o)
+                0x0000000000000250                exit
+                0x0000000000000250                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -287,14 +310,15 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000000000000174        0x4 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_exit.o)
+ .fini0         0x0000000000000250        0x4 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_exit.o)
  *(.fini0)
-                0x0000000000000178                _etext = .
+                0x0000000000000254                _etext = .
 
-.data           0x0000000000800060        0x0 load address 0x0000000000000178
+.data           0x0000000000800060        0x0 load address 0x0000000000000254
                 0x0000000000800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x0000000000800060        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr5/crtm32.o
+ .data          0x0000000000800060        0x0 ./MCAL/F97_SPI.o
  .data          0x0000000000800060        0x0 ./MCAL/F97_Uart.o
  .data          0x0000000000800060        0x0 ./APPS/main.o
  .data          0x0000000000800060        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_udivmodsi4.o)
@@ -312,6 +336,7 @@ END GROUP
                 0x0000000000800060                PROVIDE (__bss_start, .)
  *(.bss)
  .bss           0x0000000000800060        0x0 /usr/lib/gcc/avr/4.8.2/../../../avr/lib/avr5/crtm32.o
+ .bss           0x0000000000800060        0x0 ./MCAL/F97_SPI.o
  .bss           0x0000000000800060        0x0 ./MCAL/F97_Uart.o
  .bss           0x0000000000800060        0x0 ./APPS/main.o
  .bss           0x0000000000800060        0x0 /usr/lib/gcc/avr/4.8.2/avr5/libgcc.a(_udivmodsi4.o)
@@ -326,8 +351,8 @@ END GROUP
  COMMON         0x0000000000800062        0x2 ./MCAL/F97_Uart.o
                 0x0000000000800062                ptr_uart
                 0x0000000000800064                PROVIDE (__bss_end, .)
-                0x0000000000000178                __data_load_start = LOADADDR (.data)
-                0x0000000000000178                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0000000000000254                __data_load_start = LOADADDR (.data)
+                0x0000000000000254                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0000000000800064        0x0
                 0x0000000000800064                PROVIDE (__noinit_start, .)
@@ -377,8 +402,9 @@ END GROUP
 
 .comment        0x0000000000000000       0x11
  *(.comment)
- .comment       0x0000000000000000       0x11 ./MCAL/F97_Uart.o
+ .comment       0x0000000000000000       0x11 ./MCAL/F97_SPI.o
                                          0x12 (size before relaxing)
+ .comment       0x0000000000000000       0x12 ./MCAL/F97_Uart.o
  .comment       0x0000000000000000       0x12 ./APPS/main.o
 
 .debug

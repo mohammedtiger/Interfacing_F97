@@ -10,6 +10,8 @@
 
 void F97_void_Uart_Init(unsigned long baud);
 void F97_void_Uart_Send_byte(unsigned char data);
+void F97_void_Uart_Send_String(unsigned char *data);
+void F97_void_Uart_Send_frame(unsigned char *data , int len);
 void F97_void_Uart_Receive_byte(unsigned char *data);
 void F97_void_Uart_callbackfunc(unsigned char *ptr);
 
